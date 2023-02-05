@@ -3,7 +3,14 @@ package Monitores;
 public class Program {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		MonitorPuente monitor = new MonitorPuente();
+		
+		//Coches
+		new Coche("BMW", "Serie 1", monitor, true);
+		new Coche("Mercedes", "Clase A", monitor, true);
+		new Coche("Nissan", "Terano", monitor,true);
+		new Coche("Porche", "930 Turbo", monitor, true);
 
 	}
 
