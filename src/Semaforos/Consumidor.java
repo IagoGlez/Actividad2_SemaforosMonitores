@@ -23,19 +23,24 @@ public class Consumidor extends Thread{
 		}
 		System.out.println("----------------------");
 		System.out.println("Elementos consumidos de golpe: " +elementosConsumidos + " por el mismo consumidor: " + consumidorId);
-		for (int i= 0; i<elementosConsumidos; i++) {
-			if (Buffer.getStore().size() == 0) {
-				System.out.println("Consumidor " + consumidorId +": El Buffer está vacío, esperando a que algún productor trabaje");
-				return;
+		if (Buffer.getStore().size() >= elementosConsumidos) {
+			for (int i= 0; i<elementosConsumidos; i++) {
+				if (Buffer.getStore().size() == 0) {
+					System.out.println("Consumidor " + consumidorId +": El Buffer está vacío, esperando a que algún productor trabaje");
+					return;
+				}
+				else {
+					//Consumir
+					int consumirNumero = Buffer.getStore().poll();
+					System.out.println("Consumidor " + consumidorId +": Número " +  consumirNumero + " consumido.");
+					System.out.println("BufferSize: " + Buffer.getStore().size());
+				}
+				
 			}
-			else {
-				//Consumir
-				int consumirNumero = Buffer.getStore().poll();
-				System.out.println("Consumidor " + consumidorId +": Número " +  consumirNumero + " consumido.");
-				System.out.println("BufferSize: " + Buffer.getStore().size());
-			}
-			
+		}else {
+			System.out.println("El buffer no tiene los suficientes elementos creados como para satisfacer esta petición del consumidor");
 		}
+		
 		
 		
 	}
